@@ -1,12 +1,17 @@
 package com.musinsa.suhpark.domain;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum CategoryType {
-    TOP,
-    OUTER,
-    PANTS,
-    SNEAKERS,
-    BAG,
-    HAT,
-    SOCKS,
-    ACCESSORIES;
+    TOP("T"),
+    OUTER("O"),
+    PANTS("P"),
+    SNEAKERS("S"),
+    BAG("B"),
+    HAT("H"),
+    SOCKS("C"),
+    ACCESSORIES("A");
+
+    private final String code;
 }

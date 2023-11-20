@@ -21,9 +21,11 @@ public class Item {
     @JoinColumn(name = "BRAND_ID", nullable = false)
     private Brand brand;
 
-    @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID", nullable = false)
-    private Category category;
+    // @ManyToOne
+    // @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    @Column(name = "CATEGORY_TYPE", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private CategoryType categoryType;
 
     @Column(name = "PRICE", nullable = false)
     private Integer price;
