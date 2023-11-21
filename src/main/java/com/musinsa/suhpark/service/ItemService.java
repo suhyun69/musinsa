@@ -3,6 +3,9 @@ package com.musinsa.suhpark.service;
 import com.musinsa.suhpark.domain.Brand;
 import com.musinsa.suhpark.domain.CategoryType;
 import com.musinsa.suhpark.domain.Item;
+import com.musinsa.suhpark.dto.BrandByCategory;
+import com.musinsa.suhpark.dto.LowestPriceBrand;
+import com.musinsa.suhpark.dto.LowestPriceBrandByCategory;
 import com.musinsa.suhpark.repository.ItemRepository;
 import com.musinsa.suhpark.repository.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,31 +26,28 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-    public List<Item> addBrandCategory() {
+    public LowestPriceBrandByCategory getLowestPriceBrandByCategory() {
 
-        return itemRepository.findAll();
-    }
-
-    public List<Item> getLowestPriceBrandByCategory() {
-
-        return Arrays.stream(CategoryType.values())
+        List<Item> itemList = Arrays.stream(CategoryType.values())
                 .map(type -> itemRepository.findByCategoryType(type).stream()
                         .min(Comparator.comparing(Item::getPrice))
                         .get())
                 .collect(Collectors.toList());
+
+        return new LowestPriceBrandByCategory(itemList);
     }
 
-    public List<Item> getLowestPriceBrand() {
+    public LowestPriceBrand getLowestPriceBrand() {
 
-        Comparator<Brand> comparator = (b1, b2) -> Integer.compare(itemRepository.findByBrand(b1).stream().mapToInt(b -> b.getPrice()).sum(),  itemRepository.findByBrand(b2).stream().mapToInt(b -> b.getPrice()).sum());
+        Comparator<Brand> comparator = (b1, b2) -> Integer.compare(itemRepository.findByBrand(b1).stream().mapToInt(b -> b.getPrice()).sum(), itemRepository.findByBrand(b2).stream().mapToInt(b -> b.getPrice()).sum());
         Brand lowestPriceBrand = brandRepository.findAll().stream()
                 .min(comparator)
                 .get();
 
-        return itemRepository.findByBrand(lowestPriceBrand);
+        return new LowestPriceBrand(itemRepository.findByBrand(lowestPriceBrand));
     }
 
-    public List<Item> getHighestAndLowestBrandByCategory(CategoryType categoryType) {
+    public BrandByCategory getHighestAndLowestBrandByCategory(CategoryType categoryType) {
 
         List<Item> itemList = new ArrayList<>();
 
@@ -59,6 +59,6 @@ public class ItemService {
                 .max(Comparator.comparing(Item::getPrice))
                 .get());
 
-        return itemList;
+        return new BrandByCategory(categoryType, itemList);
     }
 }
