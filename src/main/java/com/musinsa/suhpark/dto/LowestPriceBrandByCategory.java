@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 public class LowestPriceBrandByCategory {
-    private List<LowestPriceBrandByCategoryDetail> lowestPriceBrandByCategoryDetailList;
+    private List<LowestPriceBrandByCategoryDetail> itemList;
     private int totalPrice;
 
     public LowestPriceBrandByCategory(List<Item> itemList) {
-        this.lowestPriceBrandByCategoryDetailList = itemList.stream().map(LowestPriceBrandByCategoryDetail::new).collect(Collectors.toList());
+        this.itemList = itemList.stream().map(LowestPriceBrandByCategoryDetail::new).collect(Collectors.toList());
         this.totalPrice = itemList.stream().mapToInt(i -> i.getPrice()).sum();
     }
 }
