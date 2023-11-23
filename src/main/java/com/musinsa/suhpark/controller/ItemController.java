@@ -17,7 +17,7 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("/api/getLowestPriceBrandByCategory")
+    @GetMapping("/api/lowestPriceBrandByCategory")
     public ResponseEntity<LowestPriceBrandByCategory> getLowestPriceBrandByCategory() {
 
         LowestPriceBrandByCategory lowestPriceBrandByCategory = itemService.getLowestPriceBrandByCategory();
@@ -26,7 +26,7 @@ public class ItemController {
                 .body(lowestPriceBrandByCategory);
     }
 
-    @GetMapping("/api/getLowestPriceBrand")
+    @GetMapping("/api/lowestPriceBrand")
     public ResponseEntity<LowestPriceBrand> getLowestPriceBrand() {
 
         LowestPriceBrand lowestPriceBrand = itemService.getLowestPriceBrand();
@@ -35,7 +35,7 @@ public class ItemController {
                 .body(lowestPriceBrand);
     }
 
-    @GetMapping("/api/getBrandByCategory")
+    @GetMapping("/api/brandByCategory")
     public ResponseEntity<BrandByCategory> getBrandByCategory(@RequestParam CategoryType categoryType) {
 
         BrandByCategory brandByCategory = itemService.getHighestAndLowestBrandByCategory(categoryType);
