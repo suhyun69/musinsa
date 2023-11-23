@@ -32,4 +32,8 @@ public class Item {
         this.categoryType = categoryType;
         this.price = price;
     }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 }

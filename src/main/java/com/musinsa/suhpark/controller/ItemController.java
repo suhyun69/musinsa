@@ -17,40 +17,14 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("/api/lowestPriceBrandByCategory")
-    public ResponseEntity<LowestPriceBrandByCategory> getLowestPriceBrandByCategory() {
+    @GetMapping("/api/item")
+    public ResponseEntity<ItemResponse> findItem(@RequestParam Long itemNo) {
 
-        LowestPriceBrandByCategory lowestPriceBrandByCategory = itemService.getLowestPriceBrandByCategory();
-
-        return ResponseEntity.ok()
-                .body(lowestPriceBrandByCategory);
-    }
-
-    @GetMapping("/api/lowestPriceBrand")
-    public ResponseEntity<LowestPriceBrand> getLowestPriceBrand() {
-
-        LowestPriceBrand lowestPriceBrand = itemService.getLowestPriceBrand();
+        Item item = itemService.findItem(itemNo);
+        ItemResponse itemResponse = new ItemResponse(item);
 
         return ResponseEntity.ok()
-                .body(lowestPriceBrand);
-    }
-
-    @GetMapping("/api/brandByCategory")
-    public ResponseEntity<BrandByCategory> getBrandByCategory(@RequestParam CategoryType categoryType) {
-
-        BrandByCategory brandByCategory = itemService.getHighestAndLowestBrandByCategory(categoryType);
-
-        return ResponseEntity.ok()
-                .body(brandByCategory);
-    }
-
-    @PostMapping("/api/brand")
-    public ResponseEntity<Brand> addBrand(@RequestBody AddBrandRequest request) {
-
-        Brand brand = itemService.addBrand(request);
-
-        return ResponseEntity.ok()
-                .body(brand);
+                .body(itemResponse);
     }
 
     @PostMapping("/api/item")
@@ -61,5 +35,24 @@ public class ItemController {
 
         return ResponseEntity.ok()
                 .body(itemResponse);
+    }
+
+    @PutMapping("/api/item")
+    public ResponseEntity<ItemResponse> updateItem(@RequestParam Long itemNo, @RequestParam Integer price) {
+
+        Item item = itemService.updateItem(itemNo, price);
+        ItemResponse itemResponse = new ItemResponse(item);
+
+        return ResponseEntity.ok()
+                .body(itemResponse);
+    }
+
+    @DeleteMapping("/api/item")
+    public ResponseEntity<Void> deleteItem(@RequestParam Long itemNo) {
+
+        itemService.deleteItem(itemNo);
+
+        return ResponseEntity.ok()
+                .build();
     }
 }

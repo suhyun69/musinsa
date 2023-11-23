@@ -24,44 +24,11 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-    public LowestPriceBrandByCategory getLowestPriceBrandByCategory() {
+    public Item findItem(Long itemNo) {
+        Item item = itemRepository.findById(itemNo)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + itemNo));
 
-        List<Item> itemList = Arrays.stream(CategoryType.values())
-                .map(type -> itemRepository.findByCategoryType(type).stream()
-                        .min(Comparator.comparing(Item::getPrice))
-                        .get())
-                .collect(Collectors.toList());
-
-        return new LowestPriceBrandByCategory(itemList);
-    }
-
-    public LowestPriceBrand getLowestPriceBrand() {
-
-        Comparator<Brand> comparator = (b1, b2) -> Integer.compare(itemRepository.findByBrand(b1).stream().mapToInt(b -> b.getPrice()).sum(), itemRepository.findByBrand(b2).stream().mapToInt(b -> b.getPrice()).sum());
-        Brand lowestPriceBrand = brandRepository.findAll().stream()
-                .min(comparator)
-                .get();
-
-        return new LowestPriceBrand(itemRepository.findByBrand(lowestPriceBrand));
-    }
-
-    public BrandByCategory getHighestAndLowestBrandByCategory(CategoryType categoryType) {
-
-        List<Item> itemList = new ArrayList<>();
-
-        itemList.add(itemRepository.findByCategoryType(categoryType).stream()
-                .min(Comparator.comparing(Item::getPrice))
-                .get());
-
-        itemList.add(itemRepository.findByCategoryType(categoryType).stream()
-                .max(Comparator.comparing(Item::getPrice))
-                .get());
-
-        return new BrandByCategory(categoryType, itemList);
-    }
-
-    public Brand addBrand(AddBrandRequest request) {
-        return brandRepository.save(request.toEntity());
+        return item;
     }
 
     public Item addItem(String brandName, CategoryType categoryType, Integer price) {
@@ -70,5 +37,18 @@ public class ItemService {
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + brandName));
 
         return itemRepository.save(new Item(brand, categoryType, price));
+    }
+
+    public Item updateItem(Long itemNo, Integer price) {
+
+        Item item = itemRepository.findById(itemNo)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + itemNo));
+        item.setPrice(price);
+
+        return itemRepository.save(item);
+    }
+
+    public void deleteItem(Long itemNo) {
+        itemRepository.deleteById(itemNo);
     }
 }

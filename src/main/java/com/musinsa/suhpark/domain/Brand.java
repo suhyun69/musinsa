@@ -23,4 +23,8 @@ public class Brand {
     public Brand(String name) {
         this.name = name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
