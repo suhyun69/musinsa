@@ -1,10 +1,7 @@
 package com.musinsa.suhpark.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -21,4 +18,9 @@ public class Brand {
 
     @Column(name = "NAME", nullable = false)
     private String name;
+
+    @Builder
+    public Brand(String name) {
+        this.name = name;
+    }
 }

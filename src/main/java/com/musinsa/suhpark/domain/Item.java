@@ -1,10 +1,7 @@
 package com.musinsa.suhpark.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -29,4 +26,10 @@ public class Item {
 
     @Column(name = "PRICE", nullable = false)
     private Integer price;
+
+    public Item(Brand brand, CategoryType categoryType, Integer price) {
+        this.brand = brand;
+        this.categoryType = categoryType;
+        this.price = price;
+    }
 }

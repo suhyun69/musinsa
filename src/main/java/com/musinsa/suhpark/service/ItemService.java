@@ -3,9 +3,7 @@ package com.musinsa.suhpark.service;
 import com.musinsa.suhpark.domain.Brand;
 import com.musinsa.suhpark.domain.CategoryType;
 import com.musinsa.suhpark.domain.Item;
-import com.musinsa.suhpark.dto.BrandByCategory;
-import com.musinsa.suhpark.dto.LowestPriceBrand;
-import com.musinsa.suhpark.dto.LowestPriceBrandByCategory;
+import com.musinsa.suhpark.dto.*;
 import com.musinsa.suhpark.repository.ItemRepository;
 import com.musinsa.suhpark.repository.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +58,17 @@ public class ItemService {
                 .get());
 
         return new BrandByCategory(categoryType, itemList);
+    }
+
+    public Brand addBrand(AddBrandRequest request) {
+        return brandRepository.save(request.toEntity());
+    }
+
+    public Item addItem(String brandName, CategoryType categoryType, Integer price) {
+
+        Brand brand = brandRepository.findByName(brandName)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + brandName));
+
+        return itemRepository.save(new Item(brand, categoryType, price));
     }
 }

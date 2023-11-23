@@ -1,7 +1,9 @@
 package com.musinsa.suhpark.domain;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public enum CategoryType {
     TOP("상의"),
@@ -13,5 +15,5 @@ public enum CategoryType {
     SOCKS("양말"),
     ACCESSORIES("액세서리");
 
-    private final String name;
+    private final String title;
 }

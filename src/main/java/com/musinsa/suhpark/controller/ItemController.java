@@ -1,15 +1,13 @@
 package com.musinsa.suhpark.controller;
 
+import com.musinsa.suhpark.domain.Brand;
 import com.musinsa.suhpark.domain.CategoryType;
-import com.musinsa.suhpark.dto.BrandByCategory;
-import com.musinsa.suhpark.dto.LowestPriceBrand;
-import com.musinsa.suhpark.dto.LowestPriceBrandByCategory;
+import com.musinsa.suhpark.domain.Item;
+import com.musinsa.suhpark.dto.*;
 import com.musinsa.suhpark.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +42,24 @@ public class ItemController {
 
         return ResponseEntity.ok()
                 .body(brandByCategory);
+    }
+
+    @PostMapping("/api/brand")
+    public ResponseEntity<Brand> addBrand(@RequestBody AddBrandRequest request) {
+
+        Brand brand = itemService.addBrand(request);
+
+        return ResponseEntity.ok()
+                .body(brand);
+    }
+
+    @PostMapping("/api/item")
+    public ResponseEntity<ItemResponse> addItem(@RequestParam String brand, @RequestParam CategoryType categoryType, @RequestParam Integer price) {
+
+        Item item = itemService.addItem(brand, categoryType, price);
+        ItemResponse itemResponse = new ItemResponse(item);
+
+        return ResponseEntity.ok()
+                .body(itemResponse);
     }
 }
