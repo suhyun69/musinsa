@@ -1,5 +1,6 @@
 package com.musinsa.suhpark.dto;
 
+import com.musinsa.suhpark.domain.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 public class LowestPriceBrandByCategory {
-    private List<Item> itemList;
+    private List<LowestPriceBrandByCategoryDetail> lowestPriceBrandByCategoryDetailList;
     private int totalPrice;
 
-    public LowestPriceBrandByCategory(List<com.musinsa.suhpark.domain.Item> itemList) {
-        this.itemList = itemList.stream().map(Item::new).collect(Collectors.toList());
+    public LowestPriceBrandByCategory(List<Item> itemList) {
+        this.lowestPriceBrandByCategoryDetailList = itemList.stream().map(LowestPriceBrandByCategoryDetail::new).collect(Collectors.toList());
         this.totalPrice = itemList.stream().mapToInt(i -> i.getPrice()).sum();
     }
 }

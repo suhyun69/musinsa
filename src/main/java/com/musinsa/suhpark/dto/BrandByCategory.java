@@ -14,12 +14,12 @@ import java.util.*;
 public class BrandByCategory {
 
     private String category;
-    private List<Brand> lowestPrice;
-    private List<Brand> highestPrice;
+    private List<BrandByCategoryDetail> lowestPrice;
+    private List<BrandByCategoryDetail> highestPrice;
 
     public BrandByCategory(CategoryType categoryType, List<Item> itemList) {
         this.category = categoryType.name();
-        this.lowestPrice = Arrays.asList(new Brand(itemList.stream().min(Comparator.comparing(Item::getPrice)).get()));
-        this.highestPrice = Arrays.asList(new Brand(itemList.stream().max(Comparator.comparing(Item::getPrice)).get()));
+        this.lowestPrice = Arrays.asList(new BrandByCategoryDetail(itemList.stream().min(Comparator.comparing(Item::getPrice)).get()));
+        this.highestPrice = Arrays.asList(new BrandByCategoryDetail(itemList.stream().max(Comparator.comparing(Item::getPrice)).get()));
     }
 }

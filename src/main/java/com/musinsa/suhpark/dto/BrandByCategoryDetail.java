@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Brand {
+public class BrandByCategoryDetail {
     private String brand;
     private Integer price;
 
-    public Brand(Item item) {
+    public BrandByCategoryDetail(Item item) {
         this.brand = item.getBrand().getName();
         this.price = item.getPrice();
     }

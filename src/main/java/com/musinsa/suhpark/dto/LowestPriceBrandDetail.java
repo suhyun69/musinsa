@@ -1,5 +1,6 @@
 package com.musinsa.suhpark.dto;
 
+import com.musinsa.suhpark.domain.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,13 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Item {
-    private String brand;
+public class LowestPriceBrandDetail {
     private String category;
     private Integer price;
 
-    public Item(com.musinsa.suhpark.domain.Item item) {
-        this.brand = item.getBrand().getName();
+    public LowestPriceBrandDetail(Item item) {
         this.category = item.getCategoryType().name();
         this.price = item.getPrice();
     }
