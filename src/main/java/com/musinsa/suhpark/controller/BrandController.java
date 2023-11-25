@@ -2,9 +2,11 @@ package com.musinsa.suhpark.controller;
 
 import com.musinsa.suhpark.domain.Brand;
 import com.musinsa.suhpark.dto.AddBrandRequest;
+import com.musinsa.suhpark.dto.ErrorResponse;
 import com.musinsa.suhpark.service.BrandService;
 import com.musinsa.suhpark.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,5 +50,23 @@ public class BrandController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(ex.getMessage()));
+
+    }
+
+    @ExceptionHandler(value = { RuntimeException.class })
+    public ResponseEntity<ErrorResponse> handleRuntimeException(Exception ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(ex.getMessage()));
+
     }
 }
