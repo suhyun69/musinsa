@@ -6,6 +6,7 @@ import com.musinsa.suhpark.domain.Item;
 import com.musinsa.suhpark.dto.*;
 import com.musinsa.suhpark.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,5 +55,23 @@ public class ItemController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(ex.getMessage()));
+
+    }
+
+    @ExceptionHandler(value = { RuntimeException.class })
+    public ResponseEntity<ErrorResponse> handleRuntimeException(Exception ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(ex.getMessage()));
+
     }
 }

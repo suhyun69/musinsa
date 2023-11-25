@@ -26,29 +26,44 @@ public class ItemService {
 
     public Item findItem(Long itemNo) {
         Item item = itemRepository.findById(itemNo)
-                .orElseThrow(() -> new IllegalArgumentException("not found: " + itemNo));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("상품을 찾을 수 없습니다 - itemNo : %d", itemNo)));
 
         return item;
     }
 
     public Item addItem(String brandName, CategoryType categoryType, Integer price) {
 
-        Brand brand = brandRepository.findByName(brandName)
-                .orElseThrow(() -> new IllegalArgumentException("not found: " + brandName));
+        try {
+            Brand brand = brandRepository.findByName(brandName)
+                    .orElseThrow(() -> new IllegalArgumentException(String.format("브랜드를 찾을 수 없습니다 - brandName : %s", brandName)));
 
-        return itemRepository.save(new Item(brand, categoryType, price));
+            return itemRepository.save(new Item(brand, categoryType, price));
+        }
+        catch(Exception ex) {
+            throw new RuntimeException("상품 추가에 실패했습니다.");
+        }
     }
 
     public Item updateItem(Long itemNo, Integer price) {
 
-        Item item = itemRepository.findById(itemNo)
-                .orElseThrow(() -> new IllegalArgumentException("not found: " + itemNo));
-        item.setPrice(price);
+        try {
+            Item item = itemRepository.findById(itemNo)
+                    .orElseThrow(() -> new IllegalArgumentException(String.format("상품을 찾을 수 없습니다 - itemNo : %d", itemNo)));
+            item.setPrice(price);
 
-        return itemRepository.save(item);
+            return itemRepository.save(item);
+        }
+        catch (Exception ex) {
+            throw new RuntimeException("상품 수정에 실패했습니다.");
+        }
     }
 
     public void deleteItem(Long itemNo) {
-        itemRepository.deleteById(itemNo);
+        try {
+            itemRepository.deleteById(itemNo);
+        }
+        catch (Exception ex) {
+            throw new RuntimeException("상품 삭제에 실패했습니다.");
+        }
     }
 }
