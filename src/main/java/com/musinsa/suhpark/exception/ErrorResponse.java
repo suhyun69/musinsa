@@ -1,4 +1,4 @@
-package com.musinsa.suhpark.dto;
+package com.musinsa.suhpark.exception;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
