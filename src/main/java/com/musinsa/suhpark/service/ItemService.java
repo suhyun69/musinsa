@@ -24,6 +24,10 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
+    public List<Item> findItems() {
+        return itemRepository.findAll();
+    }
+
     public Item findItem(Long itemNo) {
         Item item = itemRepository.findById(itemNo)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("상품을 찾을 수 없습니다 - itemNo : %d", itemNo)));

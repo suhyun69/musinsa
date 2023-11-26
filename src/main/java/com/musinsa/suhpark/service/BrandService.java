@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BrandService {
 
@@ -17,6 +19,10 @@ public class BrandService {
 
     @Autowired
     BrandRepository brandRepository;
+
+    public List<Brand> findBrands() {
+        return brandRepository.findAll();
+    }
 
     public Brand findBrand(Long brandNo) {
         Brand brand = brandRepository.findById(brandNo)
@@ -28,10 +34,13 @@ public class BrandService {
     public Brand addBrand(AddBrandRequest request) {
 
         try {
+            brandRepository.findByName(request.getBrand())
+                    .orElseThrow(() ->  new IllegalArgumentException(String.format("이미 등록된 브랜드입니다.")));
+
             return brandRepository.save(request.toEntity());
         }
         catch(Exception ex) {
-            throw new RuntimeException("브랜드 추가에 실패했습니다.");
+            throw new RuntimeException("브랜드 등록에 실패했습니다.");
         }
     }
 

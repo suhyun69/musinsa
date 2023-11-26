@@ -6,14 +6,14 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum CategoryType {
-    TOP("상의"),
-    OUTER("아우터"),
-    PANTS("바지"),
-    SNEAKERS("스니커즈"),
-    BAG("가방"),
-    HAT("모자"),
-    SOCKS("양말"),
-    ACCESSORIES("액세서리");
+    상의("TOP"),
+    아우터("OUTER"),
+    바지("PANTS"),
+    스니커즈("SNEAKERS"),
+    가방("BAG"),
+    모자("HAT"),
+    양말("SOCKS"),
+    액세서리("ACCESSORIES");
 
     private final String title;
 }
