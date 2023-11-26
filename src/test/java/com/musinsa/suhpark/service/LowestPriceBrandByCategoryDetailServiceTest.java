@@ -51,7 +51,10 @@ class LowestPriceBrandByCategoryDetailServiceTest {
 
         BrandByCategory brandByCategory = searchService.getHighestAndLowestBrandByCategory(CategoryType.상의);
 
-        assertThat(brandByCategory.get최저가().get(0).get가격() + brandByCategory.get최고가().get(0).get가격()).isEqualTo("21,400");
+        Integer lowestPrice = Integer.valueOf(brandByCategory.get최저가().get(0).get가격().replace(",", ""));
+        Integer hightestPrice = Integer.valueOf(brandByCategory.get최고가().get(0).get가격().replace(",", ""));
+
+        assertThat(lowestPrice + hightestPrice).isEqualTo(21400);
     }
 
 }
