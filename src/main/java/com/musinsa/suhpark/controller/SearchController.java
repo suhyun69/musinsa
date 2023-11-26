@@ -4,6 +4,7 @@ import com.musinsa.suhpark.domain.CategoryType;
 import com.musinsa.suhpark.dto.BrandByCategory;
 import com.musinsa.suhpark.dto.LowestPriceBrand;
 import com.musinsa.suhpark.dto.LowestPriceBrandByCategory;
+import com.musinsa.suhpark.dto.LowestPriceResponse;
 import com.musinsa.suhpark.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,7 +27,7 @@ public class SearchController {
     private final SearchService searchService;
 
     @GetMapping("/lowestPriceBrandByCategory")
-    @Operation(summary = "카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API")
+    @Operation(summary = "1. 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API")
     public ResponseEntity<LowestPriceBrandByCategory> getLowestPriceBrandByCategory() {
 
         LowestPriceBrandByCategory lowestPriceBrandByCategory = searchService.getLowestPriceBrandByCategory();
@@ -36,17 +37,18 @@ public class SearchController {
     }
 
     @GetMapping("/lowestPriceBrand")
-    @Operation(summary = "단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API")
-    public ResponseEntity<LowestPriceBrand> getLowestPriceBrand() {
+    @Operation(summary = "2. 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API")
+    public ResponseEntity<LowestPriceResponse> getLowestPriceBrand() {
 
         LowestPriceBrand lowestPriceBrand = searchService.getLowestPriceBrand();
+        LowestPriceResponse lowestPriceResponse = new LowestPriceResponse(lowestPriceBrand);
 
         return ResponseEntity.ok()
-                .body(lowestPriceBrand);
+                .body(lowestPriceResponse);
     }
 
     @GetMapping("/brandByCategory")
-    @Operation(summary = "카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API")
+    @Operation(summary = "3. 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API")
     public ResponseEntity<BrandByCategory> getBrandByCategory(@RequestParam CategoryType categoryType) {
 
         BrandByCategory brandByCategory = searchService.getHighestAndLowestBrandByCategory(categoryType);

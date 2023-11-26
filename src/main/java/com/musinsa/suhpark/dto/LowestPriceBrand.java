@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 @Setter
 public class LowestPriceBrand {
     private String 브랜드;
-    private List<LowestPriceBrandDetail> 상품목록;
+    private List<LowestPriceBrandDetail> 카테고리;
     private String 총액;
 
     public LowestPriceBrand(List<Item> itemList) {
         this.set브랜드(itemList.get(0).getBrand().getName());
-        this.set상품목록(itemList.stream().map(LowestPriceBrandDetail::new).collect(Collectors.toList()));
+        this.set카테고리(itemList.stream().map(LowestPriceBrandDetail::new).collect(Collectors.toList()));
         this.set총액(new DecimalFormat("#,###").format(itemList.stream().mapToInt(i -> i.getPrice()).sum()));
     }
 }
