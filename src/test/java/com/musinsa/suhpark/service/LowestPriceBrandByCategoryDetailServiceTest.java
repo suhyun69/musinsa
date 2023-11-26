@@ -33,7 +33,7 @@ class LowestPriceBrandByCategoryDetailServiceTest {
 
         LowestPriceBrandByCategory lowestPriceBrandByCategory = searchService.getLowestPriceBrandByCategory();
 
-        assertThat(lowestPriceBrandByCategory.getTotalPrice()).isEqualTo(34100);
+        assertThat(lowestPriceBrandByCategory.get총액()).isEqualTo("34,100");
     }
 
     @DisplayName("단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API")
@@ -42,16 +42,16 @@ class LowestPriceBrandByCategoryDetailServiceTest {
 
         LowestPriceBrand lowestPriceBrand = searchService.getLowestPriceBrand();
 
-        assertThat(lowestPriceBrand.getTotalPrice()).isEqualTo(36100);
+        assertThat(lowestPriceBrand.get총액()).isEqualTo("36,100");
     }
 
     @DisplayName("카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API")
     @Test
     void GetHighestAndLowestBrandByCategoryTest() {
 
-        BrandByCategory brandByCategory = searchService.getHighestAndLowestBrandByCategory(CategoryType.TOP);
+        BrandByCategory brandByCategory = searchService.getHighestAndLowestBrandByCategory(CategoryType.상의);
 
-        assertThat(brandByCategory.getLowestPrice().get(0).getPrice() + brandByCategory.getHighestPrice().get(0).getPrice()).isEqualTo(21400);
+        assertThat(brandByCategory.get최저가().get(0).get가격() + brandByCategory.get최고가().get(0).get가격()).isEqualTo("21,400");
     }
 
 }
