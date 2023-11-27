@@ -9,9 +9,6 @@
 ## Swagger 주소
 > http://localhost:8080/swagger-ui/index.html
 
-## 사전 정의
-
-
 ## 구현내용
 ### 구현 1) - 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
 + 구현방법 :
