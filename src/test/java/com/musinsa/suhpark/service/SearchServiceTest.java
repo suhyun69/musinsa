@@ -1,7 +1,6 @@
 package com.musinsa.suhpark.service;
 
 import com.musinsa.suhpark.domain.CategoryType;
-import com.musinsa.suhpark.domain.Item;
 import com.musinsa.suhpark.dto.BrandByCategory;
 import com.musinsa.suhpark.dto.LowestPriceBrand;
 import com.musinsa.suhpark.dto.LowestPriceBrandByCategory;
@@ -11,12 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class LowestPriceBrandByCategoryDetailServiceTest {
+class SearchServiceTest {
 
     @Autowired
     ItemRepository itemRepository;
